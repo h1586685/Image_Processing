@@ -8,7 +8,7 @@ Feature :
 >Setting
 - Get ROI
 - Show image histograms
--  Change the image color space include:
+-  Change the image color space including:
 1. RGB
 2. BGR
 3. HSV
