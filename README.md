@@ -9,10 +9,10 @@ Feature :
 >Setting
 - Get ROI
 - Warp images:
-1.Rotation
-2.Translate
-3.Affine transform
-4.Perspective transform
+1. Rotation
+2. Translate
+3. Affine transform
+4. Perspective transform
 
 - Show image histograms
 -  Change the image color space including:
