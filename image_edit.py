@@ -339,7 +339,7 @@ def affine_trans_win(window):
         messagebox.showwarning("警告","未開啟檔案")
 
 def get_points(event,x,y,flag,param):
-    if (event == cv.EVENT_LBUTTONDBLCLK):
+    if (event == cv.EVENT_LBUTTONDBLCLK and len(pts)<4):
         pts.append((x,y))
         cv.imshow("Perspective",cv.circle(pers_img, (x,y), radius=3, color=(0, 0, 255), thickness=-1))
 
@@ -349,14 +349,16 @@ def perspective_trans(window):
     pts = []
     pers_img = get_img()
     cv.imshow("Perspective",pers_img)
+    cv.setMouseCallback("Perspective",get_points)
     while(1):
-        cv.setMouseCallback("Perspective",get_points)
         key = cv.waitKey(13)
         if (key == 13):
             cv.destroyWindow("Perspective")
-            pts1 = float32([[pts[0][0],pts[0][1]],[pts[1][0],pts[1][1]],[pts[2][0],pts[2][1]],[pts[3][0],pts[3][1]]])
-            pts2 = float32([[0,0],[300,0],[0,300],[300,300]])
-            M = cv.getPerspectiveTransform(pts1,pts2)
-            dst = cv.warpPerspective(get_img(),M,(300,300))
-            show_img(window,dst)
+            if (len(pts)>=4):
+                pts1 = float32([[pts[0][0],pts[0][1]],[pts[1][0],pts[1][1]],[pts[2][0],pts[2][1]],[pts[3][0],pts[3][1]]])
+                pts2 = float32([[0,0],[300,0],[0,300],[300,300]])
+                M = cv.getPerspectiveTransform(pts1,pts2)
+                dst = cv.warpPerspective(get_img(),M,(300,300))
+                show_img(window,dst)
             break
+            
