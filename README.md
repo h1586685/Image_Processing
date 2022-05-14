@@ -4,7 +4,7 @@ Foundations of Digital Image Processing
 Feature :
 >File
 - Load / Save image
-- Image Info
+- Image's Infos
 
 >Setting
 - Get ROI
@@ -15,7 +15,7 @@ Feature :
 4. Perspective transform
 
 - Show image histograms
--  Change the image color space including:
+-  Change the image color spaces including:
 1. RGB
 2. BGR
 3. HSV
