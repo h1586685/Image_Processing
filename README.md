@@ -1,7 +1,7 @@
 # Image_Processing
 Foundations of Digital Image Processing
 
-Feature :
+## Feature :
 >File
 - Load / Save image
 - Image Info
@@ -25,3 +25,12 @@ Feature :
 - Thresholding
 - Histogram Equalization
 - Filter
+- Morphological Transformations including:
+1. Erosion_img
+2. Dilation_img
+3. Open
+4. Close
+
+>Edge Detections
+- Canny 
+- Sobel
