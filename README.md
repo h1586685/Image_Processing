@@ -1,7 +1,8 @@
 # Image_Processing
 Foundations of Digital Image Processing
 
-Feature :
+--- 
+## Feature :
 >File
 - Load / Save image
 - Image's Infos
