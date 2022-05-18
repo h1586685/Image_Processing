@@ -351,8 +351,7 @@ def perspective_trans(window):
     cv.imshow("Perspective",pers_img)
     cv.setMouseCallback("Perspective",get_points)
     while(1):
-        key = cv.waitKey(13)
-        if (key == 13):
+        if (cv.waitKey(13) == 13):
             cv.destroyWindow("Perspective")
             if (len(pts)>=4):
                 pts1 = float32([[pts[0][0],pts[0][1]],[pts[1][0],pts[1][1]],[pts[2][0],pts[2][1]],[pts[3][0],pts[3][1]]])
@@ -361,4 +360,5 @@ def perspective_trans(window):
                 dst = cv.warpPerspective(get_img(),M,(300,300))
                 show_img(window,dst)
             break
-            
+        
+

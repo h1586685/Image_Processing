@@ -1,6 +1,6 @@
 import tkinter as tk
 from file import *
-from cv2 import equalizeHist,cvtColor,threshold,filter2D,GaussianBlur,medianBlur
+from cv2 import equalizeHist,cvtColor,threshold,filter2D,GaussianBlur,medianBlur,morphologyEx
 from cv2 import THRESH_BINARY,COLOR_BGR2GRAY,BORDER_DEFAULT
 from image_edit import *
 import numpy as np
@@ -20,7 +20,7 @@ def setting_threshold_window(window,menu = ""):
         max.grid(row = 1, column = 1,padx=10)
 
         tk.Button(threshold, text = "確認",command = lambda : img_thresholding(window,threshold,min.get(),max.get(),menu)).grid(row = 2, column = 0,padx=21)
-        tk.Button(threshold, text = "取消",command = threshold.destroy).grid(row = 2, column = 1,)
+        tk.Button(threshold, text = "取消",command = threshold.destroy).grid(row = 2, column = 1)
     else:
         messagebox.showwarning("警告","未開啟檔案")
             
@@ -55,9 +55,9 @@ def img_filter(window,filter_name,menu =""):
         if (filter_name == "averaging"):
             #kernel size = 3*3,get the average value from kernel 
             kernel_size = np.ones((3,3),np.float32)/9
-
             #after filter image will get same image depth when ddepth's value = -1
             show_img(window,filter2D(src= img,ddepth= -1, kernel = kernel_size , borderType= BORDER_DEFAULT))
+
         if (filter_name == "gaussian_blur"):
             show_img(window,GaussianBlur(img, (3,3) ,0,borderType=BORDER_DEFAULT))
         if (filter_name == "median_blur"):
@@ -66,10 +66,21 @@ def img_filter(window,filter_name,menu =""):
         if (filter_name == "emboss"):
             emboss_kernel = np.array([[-2, -1, 0], [-1, 1, 1], [0, 1, 2]])
             show_img(window,filter2D(src= img,ddepth= -1, kernel = emboss_kernel , borderType= BORDER_DEFAULT))
-        if (filter_name == "sobel"):
-            sobel_kernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-            img = cvtColor(img,COLOR_BGR2GRAY)
-            menu_color_switch("GRAY",menu)
-            show_img(window,filter2D(src= img,ddepth= -1, kernel = sobel_kernel , borderType= BORDER_DEFAULT))
     except:
         messagebox.showwarning("警告","未開啟檔案")
+
+def MOR_OPEN(window):
+    kernel = np.ones((3,3), np.uint8)
+    show_img(window,morphologyEx(get_img(), cv.MORPH_OPEN, kernel))
+
+def MOR_CLOSE(window):
+    kernel = np.ones((3,3), np.uint8)
+    show_img(window,morphologyEx(get_img(), cv.MORPH_CLOSE, kernel))
+
+def Erosion_img(window):
+    kernel = np.ones((5,5),np.uint8)
+    show_img(window,cv.erode(get_img(),kernel,iterations = 1))
+
+def Dilation_img(window):
+    kernel = np.ones((5,5),np.uint8)
+    show_img(window,cv.dilate(get_img(),kernel,iterations = 1))

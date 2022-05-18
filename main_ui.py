@@ -2,6 +2,7 @@ import tkinter as tk
 from file import *
 from image_edit import *
 from Image_Processing import *
+from edge_detection import *
 
 window = tk.Tk() #main window
 toolbar = tk.Menu(window) 
@@ -49,12 +50,23 @@ filter.add_command(label="高斯模糊",command = lambda: img_filter(window,"gau
 filter.add_command(label="中值濾波",command = lambda: img_filter(window,"median_blur"))
 filter.add_separator()
 filter.add_command(label="浮雕濾波器",command = lambda: img_filter(window,"emboss"))
-filter.add_command(label="索伯濾波器",command = lambda: img_filter(window,"sobel",color_space_option))
 image_processing.add_cascade(label="濾波器" ,menu=filter)
+image_processing.add_separator()
+image_processing.add_command(label= "侵蝕",command = lambda: Erosion_img(window))
+image_processing.add_command(label= "膨脹",command = lambda: Dilation_img(window))
+image_processing.add_command(label= "開運算",command = lambda: MOR_OPEN(window))
+image_processing.add_command(label= "閉運算",command = lambda: MOR_CLOSE(window))
+
+
+
+edge_detection = tk.Menu(toolbar,tearoff=False)
+edge_detection.add_command(label="Canny邊緣偵測",command = lambda: Canny_Value_Set(window,color_space_option))
+edge_detection.add_command(label="Sobel濾波器",command = lambda: Sobel_edge_detection(window,color_space_option))
 
 toolbar.add_cascade(label= "檔案", menu= file_menu)
 toolbar.add_cascade(label= "設定", menu= image_edit)
 toolbar.add_cascade(label= "影像處理", menu= image_processing)
+toolbar.add_cascade(label= "邊緣偵測", menu= edge_detection)
 
 window.title('影像處理')
 window.geometry('%dx%d+%d+%d' % (700,700,0,0))
